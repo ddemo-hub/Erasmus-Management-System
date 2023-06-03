@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% extends 'main_page.html' %}
+{% block nav_content %}
+<li class="nav-item">
+    <a class="nav-item nav-link" style="padding-top:15px" id="signUp" href="/student_home">Home</a>
+  </li>
+<li class="nav-item">
+    <form action="" method="POST">
+      <button type="logout" class="logoutButton" style="padding-top:12px; background:none; color:rgb(193, 187, 187)"
+        name="logout" value="">
+        Logout
+      </button>
+    </form>
+</li>
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == "!cgpa" %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <h3> {{message}} </h3>
+                </div>
+            {% elif category == "success" %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <h3> {{message}} </h3>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<div style="margin:10px">
+ 
+    <div class="row justify-content-between" style="margin:0px; ">
+
+        <div class="col-10"
+            style=" background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);color:white;">
+            <h2>University Details</h2>
+            <div style="padding:10px">
+                <table class="table table-light table-striped table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th scope="col">University Name</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Language Requirements</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for university in universities %}
+                        <tr>
+
+                            <td>{{university.name}}</td>
+                            <td>{{university.country}}</td>
+                            <td>{{university.semester}}</td>
+                            <td>{{university.language_requirements}}</td>
+                        </tr>
+
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <style>
+        label {
+            color: black;
+        }
+    </style>
+
+
+
+    <div class="row justify-content-between" style="margin:0px; margin-top:50px">
+        <div class="col-4"
+            style="background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%); color:white;margin-top:10px; padding:10px">
+            <h2>Choose University </h2>
+            <div style="padding:10px; margin:10px;background-color: white;">
+                <form action="/student_application/" method="POST">
+                    <label for="lang">University 1</label>
+                    <select name="university1" id="lang">
+                        <option value=None> None </option>
+                        {% for university in universities %}
+                        <option value="{{university.name}}"> {{university.name}} </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="lang">University 2</label>
+                    <select name="university2" id="lang">
+                        <option value=None> None </option>
+                        {% for university in universities %}
+                        <option value="{{university.name}}"> {{university.name}} </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="lang">University 3</label>
+                    <select name="university3" id="lang">
+                        <option value=None> None </option>
+                        {% for university in universities %}
+                        <option value="{{university.name}}"> {{university.name}} </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="lang">University 4</label>
+                    <select name="university4" id="lang">
+                        <option value=None> None </option>
+                        {% for university in universities %}
+                        <option value="{{university.name}}"> {{university.name}} </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="lang">University 5</label>
+                    <select name="university5" id="lang">
+                        <option value=None> None </option>
+                        {% for university in universities %}
+                        <option value="{{university.name}}"> {{university.name}} </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-2"
+        style="background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%); color:white;margin-top:10px; padding:10px">
+            <h1> Your Current Selections </h1>
+            {% for selection in current_selections %}
+            <a>Selection {{loop.index}}: {{selection}}</a> <br>
+            {% endfor %}
+
+        </div>
+
+        <div class="col-5"
+        style="background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%); color:white;margin-top:10px; padding:10px">
+            <h1> Download Application Form Template </h1>
+            <a href="http://127.0.0.1:5000/student_application?download=application_form">
+                Download
+            </a>
+
+            <h1> Upload Application Form </h1>
+            <div class="center">
+                <form method="POST" action="/student_application/" enctype="multipart/form-data">
+                    <input type="file" name="file">
+                    <button>Upload Signed Application Form</button>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+{% endblock %}

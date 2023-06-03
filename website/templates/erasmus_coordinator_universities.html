@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  {% extends 'main_page.html' %}
+
+  {% block nav_content %}
+    
+  {% for role in user.role %}
+  {% if role.role == "Course Coordinator" %}
+  <li class="nav-item">
+      <a class="nav-item nav-link" href="/cchome">Switch to Course Coordinator</a>
+  </li>
+  {% endif %}
+  {% endfor %}
+
+  <a class="nav-item nav-link" href="/ec/home">Home</a>
+  <a class="nav-item nav-link" href="/ec/upload_ct_form">Upload Final Form</a>
+  <a class="nav-item nav-link" href="/faq/update/department={{user.department}}">Update FAQ</a>
+  <a class="nav-item nav-link" href="/ec/universities">Universities</a>
+  <a class="nav-item nav-link" href="/ec/update_deadline">Deadlines</a>
+  <a class="nav-item nav-link" href="/ec/courses">View Course Proposals</a>
+  <a class="nav-item nav-link" href="/ec/wb_management/department={{user.department}}">Waiting List</a>
+  <li class="nav-item">
+      <form action="" method="POST">
+          <button type="logout" class="logoutButton" style="padding-top:5px" name="logout" value="">
+              Logout
+          </button>
+      </form>
+  </li>
+  <style>
+    .logoutButton {
+        background:none;
+        color:rgb(224, 214, 214);
+        border:none;
+        margin-top:3px;
+        padding:0;
+    }
+</style>
+{% endblock %}
+
+  {% block content %}
+  <style>
+    .block{
+      margin:10px; background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+    }
+    h1{
+      background: radial-gradient(64.18% 64.18% at 71.16% 35.69%, #E9DEFA 0.89%, #BEF3F5 17.23%, #9DEDF0 42.04%, #7DE7EB 55.12%, #5CE1E6 71.54%, #33BBCF 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+    }
+    </style>
+  <div style="margin:10px">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="block p-3 ">
+      <h1 style="text-align: center;">Universities</h1>
+      <table class="table table-responsive-xl  table-light table-striped table-bordered">
+      <tr>
+        <th>University</th>
+        <th>Country</th>
+        <th>Semesters</th>
+        <th>Language Requirements</th>
+        <th>Total Quota</th>
+        <th>Remaining Quota</th>
+        <th></th>
+      </tr>
+      {% for university, department in university_dictionary.items() %}
+      <tr>
+        <form action="" method="POST">
+          <div class="form-group">
+            <td>
+              <input type="text" id="update_name" name="update_name" value="{{ university.name }}" required />
+            </td>
+            <td>
+              <input type="text" id="update_country" name="update_country" value="{{ university.country }}" required />
+            </td>
+            <td>
+              <select class="form-control" id="update_semester" name="update_semester">
+                {% if university.semester == "Fall" %}
+                <option value="fall" selected>Fall</option>
+                <option value="spring">Spring</option>
+                <option value="both">Both</option>
+                {% elif university.semester == "Spring" %}
+                <option value="fall">Fall</option>
+                <option value="spring" selected>Spring</option>
+                <option value="both">Both</option>
+                {% elif university.semester == "Both" %}
+                <option value="fall">Fall</option>
+                <option value="spring">Spring</option>
+                <option value="both" selected>Both</option>
+                {% endif %}
+              </select>
+            </td>
+            <td>
+              <input type="text" id="update_language" name="update_language"
+                value="{{ university.language_requirements }}" required />
+            </td>
+            <td>
+              <input type="number" id="update_total_quota" name="update_total_quota"
+                value="{{ department.total_quota }}" required />
+            </td>
+            <td>
+              <input type="number" id="update_remaining_quota" name="update_remaining_quota"
+                value="{{ department.remaining_quota }}" readonly />
+            </td>
+          </div>
+          <td>
+            <button type="submit" class="open btn btn-primary" name="update" value="{{ university.university_id }}">
+              Update
+            </button>
+          </td>
+        </form>
+      </tr>
+      {% endfor %}
+    </table>
+    </div>
+
+    
+
+    <div class="block p-3 col-xl-6 col-md-8 col-sm-10 col-lg-8 col-11">
+      <h1>Add University</h1>
+        <form style="color:white" method="POST">
+          <div class="form-group">
+          <label for="name">University Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter university name" required />
+          <label style="margin-top:10px" for="country">Country</label>
+          <input type="text" class="form-control" id="country" name="country" placeholder="Enter country" required />
+          <label style="margin-top:10px" for="semester">Semesters</label>
+          <select class="form-control" id="semester" name="semester">
+            <option value="default">Select available semesters</option>
+            <option value="fall">Fall</option>
+            <option value="spring">Spring</option>
+            <option value="both">Both</option>
+          </select>
+          <label style="margin-top:10px" for="language">Language Requirements</label>
+          <input type="text" class="form-control" id="language" name="language" placeholder="Enter language requirements"
+            required />
+          <label  style="margin-top:10px" for="quota">Total Quota</label>
+          <input type="number" class="form-control" id="quota" name="quota" placeholder="Enter total quota" required />
+        </div>
+        <button type="submit" class="open btn btn-primary" name="add_university">
+          Add University
+        </button>
+      </form>
+    </div>
+
+  </div>
+  {% endblock %}
+</body>
+
+</html>

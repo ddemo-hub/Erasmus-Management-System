@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% extends 'main_page.html' %}
+{% block nav_content %}
+<li class="nav-item">
+    <a class="nav-item nav-link" style="padding-top:15px" id="signUp" href="/student_home">Home</a>
+</li>
+<li class="nav-item">
+    <form action="" method="POST">
+        <button type="logout" class="logoutButton" style="padding-top:12px; background:none; color:rgb(193, 187, 187)"
+            name="logout" value="">
+            Logout
+        </button>
+    </form>
+</li>
+{% endblock %}
+{% block content %}
+<div style="margin:10px">
+
+    <div class="row " style="margin:0px; ">
+
+        <div class="col-xl-7 col-lg-9 col-md-10 mr-5 mb-4"
+            style=" background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);color:white;">
+            <h2>Available Courses</h2>
+            <div style="padding:10px">
+                <form action="" method="POST">
+                    <table class="table table-light table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Course Credit</th>
+                                <th scope="col">Equivalent Bilkent Course</th>
+                                <th scope="col">Web Page</th>
+                                <th scope="col">Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in user.applications %}
+                            {% for university in universities %}
+                            {% if university.university_id == application.matched_university %}
+                            {% for course in university.courses %}
+                            <tr>
+                                {% if course.approval_status == "Approved" %}
+                                    <td>{{course.course_name}}</td>
+                                    <td>{{course.course_credit}}</td>
+                                    <td>{{course_service.getBilkentCourseName(course.equivalent_bilkent_course)}}</td>
+                                    <td><a href="{{course.web_page}}">link to course webpage</a></td>
+                                    <td>
+
+                                        <input type="checkbox" id="{{course.course_name}}" name="Choose"
+                                            value="{{course.course_name}}">
+                                    </td>
+                                {% endif %}    
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                    <input type=submit value=Select>
+                </form>
+            </div>
+
+
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-5 mb-4"
+        style="background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%); color:white; ">
+        <h1>
+            Request Courses
+        </h1>
+        <a class="btn btn-primary" href="{{url_for('student_propose_course')}}">
+            Request
+        </a>
+    </div>
+
+    </div>
+
+    <div class="row" style="margin:0px; margin-top:50px; ">
+
+        <div class="col-xl-4 col-lg-6 col-md-8 mr-5"
+            style="background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%); color:black;margin-top:10px; padding:10px">
+            <h2 style="color: white;">Selected Courses</h2>
+            <div style="padding:10px; margin:10px;background-color: white;">
+
+
+
+                <table class="table table-light table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Course Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+
+
+                            <td>{{course.course_name}}</td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-6 col-md-8 p-2"
+            style="background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%); color:white;margin-top:10px; padding:10px">
+            <h1> Download Pre-Approval Form </h1>
+            <img style="width:100px" src="../static/file.png" />
+            <a class="btn btn-primary" href="http://127.0.0.1:5000/student_preapproval?download=preapproval_form">
+                Download
+            </a>
+        </div>
+
+
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title> Login </title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rubik:400,700'>
+  <link rel="stylesheet" href={{ url_for('static', filename='login_page.css') }}>
+</head>
+{% extends 'main_page.html ' %}
+
+{% block content %}
+<body>
+
+	<div class="login-form">
+		<form method="POST">
+			<h1>Login</h1>
+			<div class="content">
+				<div class="input-field">
+					<label for="bilkent_id"></label>
+					<input type="id" id="bilkent_id" name="bilkent_id" placeholder="Bilkent ID" autocomplete="nope">
+				</div>
+				<div class="input-field">
+					<label for="password"></label>
+					<input type="password" id="password" name="password" placeholder="Password" autocomplete="new-password">
+				</div>
+			</div>
+			<div class="action">
+				<button>Forgot Your Password?</button>
+				<button>Log in</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+{% endblock %}  

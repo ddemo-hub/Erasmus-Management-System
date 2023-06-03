@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>International Office</title>
+</head>
+
+<body style="background-color:#b9b9b9">
+    {% extends 'main_page.html' %}
+
+    {% block nav_content %}
+
+    <li class="nav-item">
+        <form action="" method="POST">
+            <button type="logout" class="logoutButton" style="padding-top:3px" name="logout" value="">
+                Logout
+            </button>
+        </form>
+    </li>
+    <style>
+        .logoutButton {
+            background: none;
+            color: rgb(125, 125, 125);
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .block {
+            margin: 10px;
+            background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+
+        }
+
+        h1 {
+            color: white;
+
+        }
+
+        p {
+            color: rgb(230, 230, 230);
+            margin-top: 40px;
+        }
+    </style>
+
+    {% endblock %}
+
+
+    {% block content %}
+    <div class="row" style="margin:50px;">
+        <div class="col block">
+
+            <div>
+                <h1><img style="width:100px" src="../static/file.png" /> Download Applications</h1>
+                <p> You can download application list from all departments in excel form</p>
+                <form method="POST" style="margin-top:50px" type="download" enctype="multipart/form-data">
+                    <label for="lang" style="color:white">Choose Department</label>
+                    <select name="downloadDepartment" id="lang">
+                        <option value=None> Choose </option>
+                        {% for department in departments %}
+                        <option value={{department}}> {{department}} </option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-primary " style="margin-left:22px" name="download">Download</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="col block">
+            <div>
+                <h1><img style="width:100px" src="../static/upload.png" /> Upload Calculated Points</h1>
+                <p> You can upload excel formed document of each department in here</p>
+                <form method="POST" type="upload" enctype="multipart/form-data">
+                    <input  style="color:white" type="file" name="file" /><br />
+                    <label style="color:white; margin-top:20px" for="lang">Choose Department</label>
+                    <select name="uploadDepartment" id="lang">
+                        <option value=None> None </option>
+                        {% for department in departments %}
+                        <option value={{department}}> {{department}} </option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-primary " style="margin-left:22px" name="upload">Upload</button>
+                </form>
+            </div>
+        </div>
+
+        {% endblock %}
+
+
+    </div>
+
+
+
+
+</html>

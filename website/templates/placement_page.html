@@ -1,0 +1,17 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Placements </title>
+</head>
+<body>
+  <h1 align="center">Placements</h1>
+	<ul class="list-group list-group-flush" id="applications">
+        {% for form in user.forms %}
+        <li class="list-group-item">
+          {{student.firstName, student.lastName, student.ID, student.department, student.matchedUniversity}}
+        </li>
+        {% endfor %}
+      </ul>
+</body>
+</html>

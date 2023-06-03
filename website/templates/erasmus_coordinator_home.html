@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+  {% extends 'main_page.html' %}
+
+  {% block nav_content %}
+    
+  {% for role in user.role %}
+  {% if role.role == "Course Coordinator" %}
+  <li class="nav-item">
+      <a class="nav-item nav-link" href="/cchome">Switch to Course Coordinator</a>
+  </li>
+  {% endif %}
+  {% endfor %}
+
+  <a class="nav-item nav-link" href="/ec/home">Home</a>
+  <a class="nav-item nav-link" href="/ec/upload_ct_form">Upload Final Form</a>
+  <a class="nav-item nav-link" href="/faq/update/department={{user.department}}">Update FAQ</a>
+  <a class="nav-item nav-link" href="/ec/universities">Universities</a>
+  <a class="nav-item nav-link" href="/ec/update_deadline">Deadlines</a>
+  <a class="nav-item nav-link" href="/ec/courses">View Course Proposals</a>
+  <a class="nav-item nav-link" href="/ec/wb_management/department={{user.department}}">Waiting List</a>
+  <li class="nav-item">
+      <form action="" method="POST">
+          <button type="logout" class="logoutButton" style="padding-top:5px" name="logout" value="">
+              Logout
+          </button>
+      </form>
+  </li>
+  <style>
+    .logoutButton {
+        background:none;
+        color:rgb(224, 214, 214);
+        border:none;
+        margin-top:3px;
+        padding:0;
+    }
+</style>
+{% endblock %}
+
+
+
+
+  {% block content %}
+  <style>
+	.block{
+		margin:10px; background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+	}
+	h1{
+		background: radial-gradient(64.18% 64.18% at 71.16% 35.69%, #E9DEFA 0.89%, #BEF3F5 17.23%, #9DEDF0 42.04%, #7DE7EB 55.12%, #5CE1E6 71.54%, #33BBCF 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+	}
+  </style>
+  	<div class="row justify-content-around" style="margin:30px;">
+		<div class="col-xl-7 col-lg-8 col-md-10 block">
+			<div style="padding:10px">
+				<h1>Last Proposals</h1>
+				<table class="table table-light table-striped table-bordered">
+					<thead class="thead-dark">
+						<tr>
+						  <th scope="col">#</th>
+						  <th scope="col">Student ID</th>
+						  <th scope="col">Application Status</th>
+						  <th scope="col">Check Details</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						
+						{% for application in applications %}
+						<tr>
+						  <td>{{application.application_id}}</td>
+						  <td>{{application.student_id}}</td>
+						  <td>{{application.application_status}}</td>
+						  <td>
+							<form method="POST">
+							{% if application.application_status == "waiting preapproval approval" %}
+							  <button type="submit" class="open" name="pre_approval" value="{{ application.application_id }}">
+								Download
+							  </button>
+							  <button type="submit" class="open" name="approve" value="{{ application.application_id }}">
+								Approve
+							  </button>
+							  <button type="submit" class="open" name="reject" value="{{ application.application_id }}">
+								Reject
+							  </button>
+							{% elif application.application_status == "waiting learning agreement approval" %}
+							  <button type="submit" class="open" name="learning_agreement" value="{{ application.application_id }}">
+								Download
+							  </button>
+							  <button type="submit" class="open" name="approve" value="{{ application.application_id }}">
+								Approve
+							  </button>
+							  <button type="submit" class="open" name="reject" value="{{ application.application_id }}">
+								Reject
+							  </button>
+							  <button type="submit" class="open" name="pre_approval" value="{{ application.application_id }}">
+								Preapproval
+							  </button>
+							{% elif application.application_status == "preapproval approved" %}
+							  <button type="submit" class="open" name="pre_approval" value="{{ application.application_id }}">
+								Preapproval
+							  </button>
+							{% elif application.application_status == "ready for mobility" %}
+							  <button type="submit" class="open" name="pre_approval" value="{{ application.application_id }}">
+								Preapproval
+							  </button>
+							  <button type="submit" class="open" name="learning_agreement" value="{{ application.application_id }}">
+								Learning Agreement
+							  </button>
+							{% else %}
+							  <button type="submit" class="open" name="application_form" value="{{ application.application_id }}">
+								Application Form
+							  </button>
+							{% endif %}
+						  </form>
+						  </td>
+						</tr>
+						{% endfor %}
+					  
+					  <tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-xl-4 col-lg-6 col-md-8 block" style="padding:20px;">
+			<div style="background-color:white; padding:5px">
+				<div class="container">
+					<div id="calendar"></div>
+				</div>
+			</div>
+			<h1>Closing Deadlines</h1>
+			<!-- for loop -->
+				<div style="margin-top:10px;margin-left:20px;background-color:white">
+					Insert Deadline Here
+				</div>
+			
+		</div>
+	</div>
+
+  
+  
+
+  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"/>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"> </script>
+	<script type="text/javascript" src="/static/calendar.js"></script>
+	<script type="text/javascript">
+		window.addEventListener("load", consoleInit({{deadline_list|tojson}}));
+	</script>
+  {% endblock %}
+</body>
+
+
+</html>

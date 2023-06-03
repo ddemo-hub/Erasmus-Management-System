@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends 'main_page.html' %}
+
+{% block nav_content %}
+
+{% endblock %}
+
+{% block content %}
+<style>
+    h2 {
+        color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        line-height: 35px;
+        height: 90px;
+    }
+
+    p {
+        color: rgb(230, 230, 230);
+        padding: 20px;
+        text-align: center;
+    }
+
+    .icon {
+        width: 100px;
+        margin-top:50px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .block {
+        margin: 10px;
+        width: 300px;
+        height: 300px;
+        border-radius:150px;
+        background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<div style="justify-content:center;  margin-top:100px;display:flex">
+    {% for role in roles_n_homepages %}
+    <div class="block">
+        <img class="icon" src="../static/key.png" />
+        <div class="buttons">
+            <a class="btn btn-primary" style="margin:20px" href="{{ url_for(roles_n_homepages[role]) }}"> Login as {{role}} </a>
+        </div>
+        <br>
+
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

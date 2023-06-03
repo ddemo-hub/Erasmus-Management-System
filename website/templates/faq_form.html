@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	{% extends 'main_page.html' %}
+
+	{% block nav_content %}
+
+	{% for role in user.role %}
+	{% if role.role == "Course Coordinator" %}
+	<li class="nav-item">
+		<a class="nav-item nav-link" href="/cchome">Switch to Course Coordinator</a>
+	</li>
+	{% endif %}
+	{% endfor %}
+
+	<a class="nav-item nav-link" href="/ec/home">Home</a>
+	<a class="nav-item nav-link" href="/ec/upload_ct_form">Upload Final Form</a>
+	<a class="nav-item nav-link" href="/faq/update/department={{user.department}}">Update FAQ</a>
+	<a class="nav-item nav-link" href="/ec/universities">Universities</a>
+	<a class="nav-item nav-link" href="/ec/update_deadline">Deadlines</a>
+	<a class="nav-item nav-link" href="/ec/courses">View Course Proposals</a>
+	<a class="nav-item nav-link" href="/ec/wb_management/department={{user.department}}">Waiting List</a>
+	
+	<li class="nav-item">
+		<form action="" method="POST">
+			<button type="logout" class="logoutButton" style="padding-top:5px; margin-top:3px" name="logout" value="">
+				Logout
+			</button>
+		</form>
+	</li>
+	
+	{% endblock %}
+	{% block content%}
+	<style>
+		.logoutButton {
+			background: none;
+			color: rgb(125, 125, 125);
+			border: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.block {
+
+			background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+			padding: 20px;
+
+
+		}
+
+		h1 {
+			color: white;
+
+		}
+
+		h3 {
+			color: rgb(230, 230, 230);
+			margin-top: 10px
+		}
+	</style>
+
+	<div style="width:80%;margin:auto; margin-top:50px; margin-bottom:50px">
+		<div class="block">
+			<h1>Add FAQ</h1>
+			<form method="POST">
+				<h3>Question</h3>
+				<textarea id="faq_create_question" name="faq_create_question" style="text-align: left;"
+					class="form-control"></textarea>
+				<h3>Answer</h3>
+				<textarea id="faq_create_answer" name="faq_create_answer" style="text-align: left;"
+					class="form-control"></textarea>
+				<button name="faq_create" value="True" class="btn btn-info mt-2">Add Faq</button>
+			</form>
+		</div>
+		<div class="block mt-5">
+			<h1>Current FAQ</h1>
+			<table class="table table-bordered table-striped">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Question</th>
+						<th scope="col">Answer</th>
+						<th scope="col">Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<form method="POST">
+						{% for faq in faqs
+						%}
+						<tr>
+							<td>
+								<textarea id="faq_update_question" name="faq_update_question{{faq.id}}"
+									style="text-align: left;" class="form-control">{{faq.question}}</textarea>
+							</td>
+							<td>
+								<textarea id="faq_update_answer" name="faq_update_answer{{faq.id}}"
+									style="text-align: left;" class="form-control">{{faq.answer}}</textarea>
+							</td>
+							<td>
+								<button name="faq_update" value={{faq.id}} class="btn btn-info">Update</button>
+								<button name="faq_delete" value={{faq.id}} class="btn btn-info">Delete</button>
+							</td>
+						</tr>
+						{% endfor %}
+					</form>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+		</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+		</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+		</script>
+	{% endblock %}
+</body>
+
+</html>

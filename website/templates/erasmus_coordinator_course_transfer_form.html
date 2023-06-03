@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+
+<body >
+    {% extends 'main_page.html' %}
+
+    {% block nav_content %}
+
+    {% for role in user.role %}
+    {% if role.role == "Course Coordinator" %}
+    <li class="nav-item">
+        <a class="nav-item nav-link" href="/cchome">Switch to Course Coordinator</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+    <a class="nav-item nav-link" href="/ec/home">Home</a>
+    <a class="nav-item nav-link" href="/ec/upload_ct_form">Upload Final Form</a>
+    <a class="nav-item nav-link" href="/faq/update/department={{user.department}}">Update FAQ</a>
+    <a class="nav-item nav-link" href="/ec/universities">Universities</a>
+    <a class="nav-item nav-link" href="/ec/update_deadline">Deadlines</a>
+    <a class="nav-item nav-link" href="/ec/courses">View Course Proposals</a>
+    <a class="nav-item nav-link" href="/ec/wb_management/department={{user.department}}">Waiting List</a>
+
+    <li class="nav-item">
+        <form action="" method="POST">
+            <button type="logout" class="logoutButton" style="padding-top:5px" name="logout" value="">
+                Logout
+            </button>
+        </form>
+    </li>
+    <style>
+        .logoutButton {
+            background: none;
+            color: rgb(224, 214, 214);
+            border: none;
+            margin: 3px;
+            padding: 0;
+        }
+    </style>
+    {% endblock %}
+    {% block content %}
+    <style>
+        .block {
+            margin: 10px;
+            background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+        }
+
+        h1 {
+            background: radial-gradient(64.18% 64.18% at 71.16% 35.69%, #E9DEFA 0.89%, #BEF3F5 17.23%, #9DEDF0 42.04%, #7DE7EB 55.12%, #5CE1E6 71.54%, #33BBCF 100%)
+                /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+            ;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+
+    <div class="row justify-content-around" style="margin:30px;">
+        <div class="col block">
+            <div style="padding-top:15px; padding-bottom:15px">
+                <form action="" method="POST">
+                    <table class="table table-responsive table-light table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Student ID</th>
+                                <th scope="col">Department</th>
+                                <th scope="col">Matched University</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Document</th>
+                                <th scope="col">Selected</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in application_list
+                            %}
+                            {% if application.application_status == "ready for mobility" or "under board inspection"%}
+                            <tr>
+                                <td>{{application.application_id}}</td>
+
+                                <td>{{application.student_id}}</td>
+
+                                <td>{{user_service.getUserById(application.student_id).department}}</td>
+
+                                <td>{{university_service.getUniversityById(application.matched_university).name}}</td>
+
+                                <td>{{application.application_status}}
+                                <td>
+
+                                    {%if application.application_status == "ready for mobility" %}
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <button type="submit" class="open" name="download_preapproval"
+                                            value="{{ application.application_id }}">
+                                            Download preapproval
+                                        </button>
+                                    </form>
+                                    {%elif application.application_status == "under board inspection" %}
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <button type="submit" class="open" name="download_ct"
+                                            value="{{ application.application_id }}">
+                                            Download course transfer
+                                        </button>
+                                    </form>
+                                    {%endif%}
+
+                                <td>
+                                    {% if application.application_id == application_id|int %}
+                                    <input type="radio" style="width: 15px; height: 15px;" name="application_id_radio"
+                                        value={{application.application_id}} checked>
+                                    {% else %}
+                                    <input type="radio" style="width: 15px; height: 15px;" name="application_id_radio"
+                                        value={{application.application_id}}>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {%endif %}
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                    <button name="application_get" value="True" class="btn btn-primary">Select Application</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="col block" >
+            <div style="padding:10px">
+                {% if application_id != None %}
+            {% if applications_service.getApplicationById(application_id).final_transfer_form != None %}
+            <form style="color:white" method="POST" enctype="multipart/form-data">
+                <p >Course transfer form for this application is uploaded</p>
+                <input type="file" name="file"><br/>
+                <button style="margin-top:10px"  name="upload_ct" value={{application_id}} class="btn btn-primary">Update Course    
+                    Transfer</button>
+                <button style="margin-top:10px" name="delete_ct" value={{application_id}} class="btn btn-primary">Delete Course
+                    Transfer</button>
+            </form>
+            {%else%}
+            <form style="color:white" method="POST" enctype="multipart/form-data">
+                <p>Course transfer form for this application is not uploaded</p>
+
+                <input type="file" name="file"><br/>
+                <button style="margin-top:10px" name="upload_ct" value={{application_id}} class="btn btn-primary">Upload Course
+                    Transfer</button>
+            </form>
+            {% endif %}
+            {% endif %}
+
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

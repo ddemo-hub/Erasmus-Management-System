@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<body>
+    {% extends 'main_page.html' %}
+
+    {% block nav_content %}
+    
+    {% for role in user.role %}
+    {% if role.role == "Course Coordinator" %}
+    <li class="nav-item">
+        <a class="nav-item nav-link" href="/cchome">Switch to Course Coordinator</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+	<a class="nav-item nav-link" href="/ec/home">Home</a>
+    <a class="nav-item nav-link" href="/">Upload Final Form</a>
+    <a class="nav-item nav-link" href="/faq/update/department={{user.department}}">Update FAQ</a>
+    <a class="nav-item nav-link" href="/ec/universities">Universities</a>
+    <a class="nav-item nav-link" href="/ec/update_deadline">Deadlines</a>
+    <a class="nav-item nav-link" href="/ec/courses">View Course Proposals</a>
+    <a class="nav-item nav-link" href="/ec/wb_management/department={{user.department}}">Waiting List</a>
+    <li class="nav-item">
+        <form action="" method="POST">
+            <button type="logout" class="logoutButton" style="padding-top:5px" name="logout" value="">
+                Logout
+            </button>
+        </form>
+    </li>
+    <style>
+      .logoutButton {
+          background:none;
+          color:rgb(224, 214, 214);
+          border:none;
+          margin-top:3px;
+          padding:0;
+      }
+  </style>
+  {% endblock %}
+  {% block content %}
+  <style>
+    .block{
+      margin:10px; background:linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+    }
+    h1{
+      background: radial-gradient(64.18% 64.18% at 71.16% 35.69%, #E9DEFA 0.89%, #BEF3F5 17.23%, #9DEDF0 42.04%, #7DE7EB 55.12%, #5CE1E6 71.54%, #33BBCF 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+    }
+    </style>
+    <div class="block p-3 col-10 col-xl-6">
+        <form style="color:white" method="POST">
+            <h1>Update Application Deadlines</h1>
+            <p>Select deadline type</p>
+            <div class="input-field">
+                <select
+                name="deadline_type">
+                    {% for deadline in deadlines %}
+                        <option value={{deadline.deadline_title}} selected>{{deadline.deadline_title}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <p>Enter new deadline</p>
+            <div class="input-field">
+                <input 
+                name="deadline"
+                type="datetime-local"
+                >
+            </div>
+            <br>
+            <div class="input-field">
+                <input 
+                name="force"
+                type="checkbox">
+                Allow deadline advancement
+            </div>
+            <br>
+            <button name="update" class="btn btn-info">Update</button>
+        </form>
+    </div>
+
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+flask
+flask-login
+flask-sqlalchemy
+docx2pdf
+docxtpl
+pandas
+xlsxwriter
+openpyxl

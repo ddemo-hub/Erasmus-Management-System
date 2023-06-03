@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Main </title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rubik:400,700'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <!-- FontAwesome CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</head>
+
+<body style="background: linear-gradient(44.39deg, #FFFFFF -278.56%, #e0dfdf -78.47%, #c2beca 91.61%);">
+
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark "
+    style=" background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);">
+    <a class="navbar-brand" href="/">
+      <img src="/static/logo.png" width="50" height="50" class="d-inline-block" style="border-radius:50px; " alt="">
+      <text style="font-weight: bold;">BILKENT ERASMUS</text>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+      aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+
+    <div class="collapse navbar-collapse" id="navbarToggle">
+      <ul class="navbar-nav ml-auto">
+        {% block nav_content %}
+
+        <li class="nav-item">
+          <a class="nav-item nav-link" style="padding-top:15px" id="signUp" href="/faq">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link" style="padding-top:15px" id="signUp" href="/contacts">Contacts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link " style="padding-top:15px ; " id="login" href="/login">Login</a>
+        </li>
+        {% endblock %}
+      </ul>
+    </div>
+  </nav>
+
+
+  {% block content %}
+  <style>
+    .block {
+      margin: 10px;
+      background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);
+    }
+
+    h1 {
+      background: radial-gradient(64.18% 64.18% at 71.16% 35.69%, #E9DEFA 0.89%, #BEF3F5 17.23%, #9DEDF0 42.04%, #7DE7EB 55.12%, #5CE1E6 71.54%, #33BBCF 100%)
+        /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+      ;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight:bold
+    }
+  </style>
+  <div style="background-image:url(/static/bilkent2.jpg); height:500px; margin:20px; padding:10px">
+
+    <div class="row"
+      style="margin:10px;justify-content: space-between; background-color:rgb(40, 40, 40);padding:10px;width:410px">
+
+      <div class="" style="color:rgb(218, 218, 218)">
+        <h1 style="text-align:left;">Bilkent Erasmus</h1>
+        <p style="text-align:left; line-height: 170%; width: 400px; margin-top:50px">Bilkent University has been actively involved in exchange/erasmus programs and has established bilateral agreements with some
+          of
+          the leading universities of the world. Students who are interested in studying abroad are encouraged to apply.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <div style="height: 2px; background: rgb(61, 57, 57); margin:20px"> </div>
+
+  <div class="justify-content-between" style="display:flex; margin-right:20px; margin-left:20px">
+    <div style="width:2px; background-color:none"></div>
+    <text style="font-weight:bold; font-size:20px">1000+ Student<img style="width:44px;margin-left:12px" src="/static/graduation-hat.png"/></text>
+    <div style="width:2px; background-color:black"></div>
+    <text style="font-weight:bold; font-size:20px">5+ Country<img style="width:40px;margin-left:10px" src="/static/countries.png"/> </text>
+    <div style="width:2px; background-color:black"></div>
+    <text style="font-weight:bold; font-size:20px">10+ University<img style="width:40px;margin-left:10px" src="/static/school.png"/></text>
+    <div style="width:2px; background-color:none"></div>
+  </div>
+  <div style="height: 2px; background: rgb(61, 57, 57); margin:20px"> </div>
+
+  <div style="margin:20px; background: linear-gradient(144.39deg, #FFFFFF -278.56%, #6D6D6D -78.47%, #0D0C15 91.61%);">
+    <div style="padding:20px">
+      <h1 style="color:white">Partner Instutions</h1>
+      <p style="color:rgb(218, 218, 218)">The erasmus partners of the Bilkent  include some of the best
+        science/engineering departments in the world. All of our exchange/erasmus partners are among the most established
+        universities of their countries, and most of them have been listed among the World's Top 200 Universities
+        according the Times Higher Education Supplement. The following is a list of our Erasmus partners:
+      </p>
+    </div>
+  
+
+    <div style="overflow: auto; white-space: nowrap; padding-bottom:20px; margin:10px">
+      {% for university in university_list %}
+      <div style="display:inline-block; margin-right:5px; background-color:rgb(218, 218, 218); border-radius:5px;filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.5));">
+        <img style="border-radius:5px 5px 0px 0px; margin-bottom:5px;width:240px; height:180px" src="{{university.image_url}}">
+        <p style="text-align:center; font-weight:bold">{{university.name}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row justify-content-between" style="margin:10px;color:white ">
+    <div class="col block" style="padding-top:20px">
+
+      <img style="margin-top:20px;display: block;margin-left: auto; margin-right: auto;width:150px" src="/static/robot-assistant.png" />
+      <h1 style="margin-top:50px">Assistant</h1>
+      <p>We are helping you on every step of your application process</p>
+
+    </div>
+    <div class="col block" style="padding-top:20px">
+
+      <img style="margin-top:20px;display: block;margin-left: auto; margin-right: auto;width:150px" src="/static/goal.png" />
+      <h1 style="margin-top:50px">Progress Bar</h1>
+      <p>After application  you can check every step to not miss any important deadlines!</p>
+
+    </div>
+    <div class="col block" style="padding-top:20px">
+
+      <img style="margin-top:20px;display: block;margin-left: auto; margin-right: auto;width:150px" src="/static/calendar.png" />
+      <h1 style="margin-top:50px">Calendar</h1>
+      <p>With our dyanmic calendar, you can track of any deadline changes</p>
+
+    </div>
+    <div class="col block" style="padding-top:20px">  
+
+      <img style="margin-top:20px;display: block;margin-left: auto; margin-right: auto;width:150px" src="/static/file.png" />
+      <h1 style="margin-top:50px">Pdf Service</h1>
+      <p>With our pdf and form services, you do not need to print any hard copy</p>
+
+    </div>
+  </div>
+  <div style="height: 2px; background: rgb(61, 57, 57); margin:20px"> </div>
+  <p style="text-align:center"><img style="width:20px" src="/static/copyright.png"/> 2022 Copyright: CS319 Group 2H </p>  
+  {% endblock %}
+
+
+  
+  
+</body>
+
+</html>
+    
+
+      
