@@ -1,15 +1,6 @@
 **CS319 Fall 2022-23**
 **Section 2**
 
-*Group Members:*
-\
-Bora Yılmaz - 22003359\
-Cengizhan Terzioğlu - 22003014\
-Emirkan Derköken - 22002693\
-Göktuğ Kuşcu - 22002867\
-Murat Güney Kemal - 22002692\
-Onur Asım İlhan - 21903375
-
 **Erasmus/Bilateral Exchange Application**
 
 Students will have the ability to apply Erasmus directly through this application. The application will eliminate the stress of formality and the anxiety that getting lost in lengthy guidelines causes. Basically, the website will lead the students throughout the whole application & post-Erasmus process bit-by-bit in a simple manner as well as helping students shape their application list by showing where students with similar academic standings were placed the preceding years and guiding them with preparing their schedules.
